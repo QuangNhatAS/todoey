@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/task_list.dart';
 import 'add_task_screen.dart';
+import '../models/task_data.dart';
 
 class TaskScreen extends StatelessWidget {
   @override
@@ -31,7 +33,7 @@ class TaskScreen extends StatelessWidget {
                       color: Colors.white,
                     )),
                 Text(
-                  '2 Task',
+                  '${Provider.of<TaskData>(context).taskCount} Task',
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
               ],
@@ -56,7 +58,14 @@ class TaskScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
               context: context,
-              builder: (context) => AddTaskScreen());
+              builder: (context) => AddTaskScreen(
+                    addTaskTitle: (newText) {
+                      // setState(() {
+                      //   Provider.of<TaskData>(context).tasks.add(Task(title: newText));
+                      // });
+                      Navigator.pop(context);
+                    },
+                  ));
         },
       ),
     );
